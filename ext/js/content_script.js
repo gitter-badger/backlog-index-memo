@@ -15,7 +15,7 @@ $(document).ready(function(){
 
 
 	for( i = 0; i<pageTags.length; i++ ){
-	    console.log( pageTags[i] );
+	    console.log( "load-" + pageTags[i] );
 	    build += "<li>" + pageTags[i] + "</li>";
 	}
     }
@@ -33,7 +33,7 @@ $(document).ready(function(){
     $('#tagit').tagit({
 	beforeTagAdded: function (event, ui){
 	    if( isInit ) return;
-	    console.log( "push-" + ui.tagLabel );
+	    console.log( "add-" + ui.tagLabel );
 	    pageTags.push(ui.tagLabel);
 	    localStorage[projectName] = JSON.stringify(pageTags);
 	    console.log( localStorage[projectName] );
