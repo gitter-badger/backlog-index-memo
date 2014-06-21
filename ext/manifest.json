@@ -1,0 +1,45 @@
+{
+  "name": "BackLog-Index",
+  "version": "0.0.1",
+  "manifest_version": 2,
+  "description": "This extension was created with the awesome extensionizr.com",
+  "homepage_url": "http://extensionizr.com",
+
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+
+  "default_locale": "en",
+
+  "page_action": {
+    "default_icon": "icons/icon19.png",
+    "default_title": "page action demo",
+    "default_popup": "src/page_action/page_action.html"
+  },
+
+  "content_scripts" : [
+      {
+	  "matches" : [
+	      "https://*.backlog.jp/**/*"
+	      ],
+	  "js" : ["js/libs/jquery/jquery.js",
+		  "js/libs/jquery-ui/jquery-ui-1.10.4.min.js",
+		  "js/libs/tag-it/tag-it.min.js",
+		  "js/content_script.js"
+		   ],
+	  "css" : ["css/jquery.tagit.css",
+		   "css/jquery-ui-1.10.4.min.css",
+		   "css/tagit.ui-zendesk.css"
+		  ],
+	  "run_at" : "document_idle",
+	  "all_frames" : true
+      }
+  ],
+
+  "permissions": [
+    "cookies",
+    "storage"
+  ]
+}
