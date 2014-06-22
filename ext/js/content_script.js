@@ -16,6 +16,9 @@ var projectName = splitPath[2].split("-")[0];
 /// https://hoge.backlog.jp/view/STWK
 var projectViewUrl = hostUrl + "/view/" + projectName
 
+/// デバッグ用...
+function debug( str ){ console.log(str); }
+
 $(document).ready(function(){
 
     var liTags = "";
@@ -24,9 +27,9 @@ $(document).ready(function(){
     if( localStorage[projectName] !== undefined ){
 	// JSONで入ってるのでパースする
 	pageTags = JSON.parse(localStorage[projectName]);
-	console.log( pageTags );
+	debug( pageTags );
 	for( i = 0; i<pageTags.length; i++ ){
-	    console.log( "load-" + pageTags[i] );
+	    debug( "load-" + pageTags[i] );
 	    liTags += "<li>" + pageTags[i] + "</li>";
 	}
     }
@@ -46,35 +49,51 @@ $(document).ready(function(){
     $('#tagit').tagit({
 	beforeTagAdded: function (event, ui){
 	    if( isInit ) return;
-	    console.log( "add-" + ui.tagLabel );
-	    pageTags.push(ui.tagLabel);
+
+	    var label = ui.tagLabel;
+	    
+	    // 入力文字に数字以外が含まれている
+	    if( label.match(/[^0-9]+/) ){
+		debug( "num only" );
+		return false;
+	    }
+
+	    debug( "add-" + label );
+	    pageTags.push(label);
+
 	    // JSON形式の文字列に変更しておく必要がある
 	    localStorage[projectName] = JSON.stringify(pageTags);
-	    console.log( localStorage[projectName] );
+	    debug( localStorage[projectName] );
 	},
 	onTagClicked: function (event, ui){
 	    if( isInit ) return;
-	    var showPath = projectViewUrl + "-" + ui.tagLabel;
+
+	    var label = ui.tagLabel;
+	    var showPath = projectViewUrl + "-" + label;
+
+	    // 遷移
 	    location.href = showPath;
 	},
 	beforeTagRemoved: function( event, ui ){
 	    if( isInit ) return;
-	    console.log( "remoe-" + ui.tagLabel );
+
+	    var label = ui.tagLabel;
+
+	    debug( "remoe-" + label );
 
 	    for( var i=0; i<pageTags.length; i++){
-		if( pageTags[i] == ui.tagLabel ){
+		if( pageTags[i] == label ){
 		    pageTags.splice(i,1);
 		}
 	    }
-
-	    localStorage[projectName] = JSON.stringify(pageTags);
-	    console.log( pageTags );
 	    
+	    // 削除反映
+	    localStorage[projectName] = JSON.stringify(pageTags);
+
+	    debug( pageTags );
 	}
     });
 
     isInit = false;
 
 });
-
-
