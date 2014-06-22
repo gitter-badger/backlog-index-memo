@@ -49,7 +49,11 @@ $(document).ready(function(){
 	    if( isInit ) return;
 	    console.log( "add-" + ui.tagLabel );
 	    pageTags.push(ui.tagLabel);
+<<<<<<< HEAD
 	    // JSON形式の文字列に変更しておく必要がある
+=======
+p	    // JSON形式の文字列に変更しておく必要がある
+>>>>>>> beforeTagRemovedイベントを実装
 	    localStorage[projectName] = JSON.stringify(pageTags);
 	    console.log( localStorage[projectName] );
 	},
