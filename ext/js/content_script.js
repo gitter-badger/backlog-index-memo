@@ -8,11 +8,10 @@ var pageTags = [];
 
 /// https://hoge.backlog.jp
 var hostUrl = location.protocol + "//" +  location.hostname;
-
-/// find/STWK とか projects/STWK
+/// find/STWK とか projects/STWK-833?q=hogehoge
 var splitPath = location.pathname.split("/");
 /// STWK
-var projectName = splitPath[splitPath.length-1];
+var projectName = splitPath[2].split("-")[0];
 
 /// https://hoge.backlog.jp/view/STWK
 var projectViewUrl = hostUrl + "/view/" + projectName
@@ -49,11 +48,7 @@ $(document).ready(function(){
 	    if( isInit ) return;
 	    console.log( "add-" + ui.tagLabel );
 	    pageTags.push(ui.tagLabel);
-<<<<<<< HEAD
 	    // JSON形式の文字列に変更しておく必要がある
-=======
-p	    // JSON形式の文字列に変更しておく必要がある
->>>>>>> beforeTagRemovedイベントを実装
 	    localStorage[projectName] = JSON.stringify(pageTags);
 	    console.log( localStorage[projectName] );
 	},
