@@ -54,11 +54,13 @@ $(document).ready(function(){
 	    
 	    // 入力文字に数字以外が含まれている
 	    if( label.match(/[^0-9]+/) ){
-		debug( "num only" );
+		pop.smallipop("show");
 		return false;
 	    }
 
 	    debug( "add-" + label );
+
+	    pop.smallipop("hide");
 	    pageTags.push(label);
 
 	    // JSON形式の文字列に変更しておく必要がある
@@ -95,5 +97,10 @@ $(document).ready(function(){
     });
 
     isInit = false;
+
+    var pop = $("li.tagit-new").smallipop({
+	preferredPosition: "bottom",
+	theme: "white"
+    }, "数値のみ入力できます");
 
 });
